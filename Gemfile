@@ -8,4 +8,3 @@ gem 'kitchen-ec2', '~> 0.7.0', :group => :integration
 gem 	'chefspec', '~> 3.0.0.beta'
 gem 	'foodcritic'
 gem 	'rubocop'
-

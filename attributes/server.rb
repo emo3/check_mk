@@ -1,8 +1,8 @@
-default['check_mk']['server']['package']['name'] = 'check_mk'
-default['check_mk']['server']['package']['version'] = '1.2.2p2'
-default['check_mk']['server']['package']['filename'] = 'check_mk-1.2.2p2.tar.gz'
-default['check_mk']['server']['package']['url'] = 'http://mathias-kettner.de/download/check_mk-1.2.2p2.tar.gz'
-default['check_mk']['server']['package']['checksum'] = '3ef638c0de39b015e02e7d60c0d612c0fcf516a7e4766ab836dc205d7330b15f'
+default["check_mk"]["server"]["package"]["name"] = "check_mk"
+default["check_mk"]["server"]["package"]["version"] = "1.2.2p3"
+default["check_mk"]["server"]["package"]["filename"] = "check_mk-1.2.2p3.tar.gz"
+default["check_mk"]["server"]["package"]["url"] = "http://mathias-kettner.de/download/check_mk-1.2.2p3.tar.gz"
+default["check_mk"]["server"]["package"]["checksum"] = "c5b20d56ff96634886feb46ef189f0779c2337a42cdf7907d810cb0bb35949aa"
 
 default['check_mk']['server']['user'] = 'nagios'
 default['check_mk']['server']['group'] = 'nagios'
@@ -84,10 +84,11 @@ default['check_mk']['server']['paths']['main_config_file'] = ::File.join(check_m
 default['check_mk']['server']['paths']['multisite_config_file'] = ::File.join(check_mk['server']['paths']['default_config_dir'], 'multisite.mk')
 default['check_mk']['server']['paths']['wato_snapshot_dir'] = ::File.join(check_mk['server']['paths']['var_dir'], 'wato', 'snapshots')
 
-
 default['check_mk']['nagios']['extra_plugins'] = true
 default['check_mk']['nagios']['extra_plugins_package'] = 'nagios-plugins-extra'
 
+default["check_mk"]["www"]["auth"] = "/etc/nagios3/htpasswd.users"
+default["check_mk"]["www"]["conf"] = "/etc/apache2/conf.d/zzz_check_mk.conf"
 # for sudo
 include_attribute 'sudo::default'
 default['authorization']['sudo']['include_sudoers_d'] = true

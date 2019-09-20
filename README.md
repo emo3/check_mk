@@ -32,6 +32,7 @@ Cookbooks
 * [apache2](http://community.opscode.com/cookbooks/apache2)
 * [fewbytes-common](https://github.com/fewbytes-cookbooks/fewbytes-common)
 * [xinetd](http://community.opscode.com/cookbooks/xinetd)
+* [source](https://github.com/fewbytes-cookbooks/source)
 * [ark](https://github.com/opscode-cookbooks/ark)
 * [sudo](https://github.com/opscode-cookbooks/sudo)
 

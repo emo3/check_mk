@@ -15,8 +15,8 @@
 
 # Privilege Options
 
-user = <%= node["check_mk"]["server"]["user"] %>
-group = <%= node["check_mk"]["server"]["group"] %>
+user = <%= node["check_mk"]["nagios"]["user"] %>
+group = <%= node["check_mk"]["nagios"]["group"] %>
 
 #########################
 #			#
@@ -40,8 +40,7 @@ log_type = syslog
 # log_file = </path/to/logpath/filename>
 #
 
-log_file = <%= node['check_mk']['pnp4nagios']['log_dir'] %>/npcd.log
-
+log_file = /var/log/pnp4nagios/npcd.log
 
 # max_logfile_size - defines the maximum filesize (bytes)
 # before the logfile will rotated.
@@ -163,8 +162,7 @@ pid_file=/var/run/npcd.pid
 # perfdata_file = </path/to/file>
 #
 
-perfdata_file = <%=node['check_mk']['pnp4nagios']['perfdata_file']%>
-
+perfdata_file = /var/spool/pnp4nagios/nagios/perfdata.dump
 
 # perfdata_spool_filename - declare the destination
 # filename for the spooled files

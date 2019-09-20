@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of check_mk.
 
+## 0.X.X:
+  
+  * Added a dependency on sudo cookbook
+  * Added node level extra_service_conf
+
 ## 1.0.0:
 
   * Added kitchen test
