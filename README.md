@@ -1,3 +1,5 @@
+**Notice: Master branch is currently broken. Please use latest version tag 0.4.2**
+
 Description
 ===========
 
@@ -28,10 +30,10 @@ Cookbooks
 ---------
 
 * [apache2](http://community.opscode.com/cookbooks/apache2)
-* cluster_service_discovery
 * [fewbytes-common](https://github.com/fewbytes-cookbooks/fewbytes-common)
 * [xinetd](http://community.opscode.com/cookbooks/xinetd)
 * [source](https://github.com/fewbytes-cookbooks/source)
+* [ark](https://github.com/opscode-cookbooks/ark)
 * [sudo](https://github.com/opscode-cookbooks/sudo)
 
 Attributes
@@ -260,15 +262,8 @@ Check_MK treats MRPE plugins like NRPE plugin, so any Nagios plugin can be used.
         arguments "-H 127.0.0.1 --foo bar"
     end
 
-TODO
-====
-
-* Create a general purpose minimal nagios cookbook and remove backend_nagios recipe and its attributes from this cookbook.
-* Replace the cluster_service_discovery cookbook with fewbytes-cookbooks/service_discovery or silverware cookbook.
-* Build a proper test suite.
-
-Configuration variables
------------------------
+Configuration variables not yet implemented
+-------------------------------------------
 
 * agent_ports
 * dyndns_hosts

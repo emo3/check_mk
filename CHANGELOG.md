@@ -2,6 +2,19 @@
 
 This file is used to list changes made in each version of check_mk.
 
+## 0.X.X:
+  
+  * Added a dependency on sudo cookbook
+  * Added node level extra_service_conf
+
+## 1.0.0:
+
+  * Added kitchen test
+  * Removed the fewbytes-common cookbook dependency
+  * Removed the cluster_service_discovery cookbook dependency
+  * Cookbook now handles server/agent discovery on its own using libraries/discovery.rb (backward inc. change)
+  * Agent recipe now downloads packages configured in attributes
+
 ## 0.4.0:
 
   * Added support for check_parameters

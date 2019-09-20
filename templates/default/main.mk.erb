@@ -11,6 +11,8 @@
 # main.mk is a python file, these special words don't need string presentation
 SPECIAL_WORDS = ["None", "True", "False"]
 
+extend Check_MK::Discovery
+
 def prepare_print(arg)
   # Wrap string as python code strings, avoid numbers and or special words
   arg = Integer(arg) if Integer(arg) rescue arg
@@ -81,7 +83,7 @@ all_hosts += [
 
 ipaddresses = {
 <% @nodes.select do |n| -%>
-  "<%=n['fqdn']%>" : "<%=(n.respond_to?(:ip_for_node) ? n.ip_for_node(@server) : (n['ipv4'] or n['fqdn']) ) %>",
+  "<%=n['fqdn']%>" : "<%=(n.respond_to?(:role?) ? relative_ipv4(n, @server) : (n['ipv4'] or n['fqdn']) ) %>",
 <% end -%>
 }
 
@@ -89,7 +91,7 @@ checks += [
 <% @nodes.select { |n| mk_config(n, 'checks') }.each do |n| -%>
 <%  n['check_mk']['config']['checks'].each do |check, check_args| -%>
 <%    check_args.each do |name, args| -%>
-  ( "<%=n['fqdn']%>", "<%=check%>", "<%=name%>", ( <%=build_args(args)%> ) ),
+  ( "<%=n['fqdn']%>", "<%=check%>", <%=prepare_print(name)%>, ( <%=build_args(args)%> ) ),
 <%    end -%>
 <%  end -%>
 <% end -%>
