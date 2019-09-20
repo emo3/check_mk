@@ -13,7 +13,7 @@ depends "source"
 depends "ark"
 depends "sudo"
 
-supports "ubuntu", ">= 10.04"
-supports "debian", ">= 6.0.0"
+supports 'ubuntu', '>= 10.04'
+supports 'debian', '>= 6.0.0'
 
-conflicts "nagios"
+conflicts 'nagios'
