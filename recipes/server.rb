@@ -8,11 +8,11 @@ include_recipe "apache2::mod_python"
 
 include_recipe "check_mk::nagios"
 
-cmk_package = node['check_mk']['server']['package']
-
-ark "check_mk" do
-  url cmk_package['url']
-  checksum cmk_package['checksum']
+# Add the apache user to nagios group
+group node['check_mk']['server']['group'] do
+  action :create
+  members [ node['apache']['user'] ]
+  append true
   notifies :restart, "service[apache2]"
   creates "setup.sh"
 end
@@ -115,6 +115,18 @@ sudo "www-data-check_mk-automation" do
   nopasswd true
 end
 
+# TODO: Find a better way to configure users
+sysadmins = search(:users, 'groups:admins')
+
+file node['check_mk']['www']['auth'] do
+  action :create
+  backup 5
+  owner node['check_mk']['server']['user']
+  group node['check_mk']['server']['group']
+  mode "0664"
+  content sysadmins.map{|u| "#{u['id']}:#{u['htpasswd']}"}.join("\n")
+end
+
 template node['check_mk']['server']['paths']['apache_config_file'] do
   owner "root"
   group "root"
@@ -131,6 +143,9 @@ end
 # Sort by fqdn
 agents_nodes = agents.reject{|n| n['check_mk'] and n['check_mk']['ignored'] }.sort_by {|n| n['fqdn']}
 
+agents = all_providers_for_service('check-mk-agent',  :fallback_environments => [node["anyclip"]["common_env"],
+    "#{node["anyclip"]["common_env"]}1", "#{node["anyclip"]["common_env"]}2" ] )
+agents = search(:node, "chef_environment:#{node.chef_environment}* AND cluster_services:check-mk-agent")
 pseudo_agents = []
 
 pseudo_agents_search =
@@ -152,7 +167,6 @@ if pseudo_agents_search.any?
       n['check_mk']['config']['extra_host_conf'] ||= {}
       n['check_mk']['config']['extra_host_conf']['check_command'] ||= 'chef-check-mk-custom!echo Default host check_command which is always true for pseudo-agents'
 
-      n#othing
     end
   end.sort_by{|n| n['fqdn'] }
 end

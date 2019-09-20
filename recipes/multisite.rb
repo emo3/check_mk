@@ -8,9 +8,9 @@ template "/etc/xinetd.d/livestatus" do
   group "root"
   mode "0644"
   variables(
-    :only_from => check_mk_servers,
+    :only_from => search(:node, 'cluster_services:check-mk-server').map { |n| n.ip_for_node(node) },
     :nagios_user => node['check_mk']['server']['user'],
-    :unix_socket => node['check_mk']['server']['paths']['livestatus_unix_socket']
+    :unix_socket => node['check_mk']['server']['conf']['unix_socket']
   )
   notifies :restart, "service[xinetd]"
 end

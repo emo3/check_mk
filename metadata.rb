@@ -9,6 +9,7 @@ version          "1.0.3"
 depends "apache2"
 depends "php"
 depends "xinetd"
+depends "source"
 depends "ark"
 depends "sudo"
 

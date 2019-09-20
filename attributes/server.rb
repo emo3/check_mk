@@ -87,7 +87,10 @@ default["check_mk"]["server"]["paths"]["wato_snapshot_dir"] = ::File.join(node['
 
 default["check_mk"]["nagios"]["extra_plugins"] = true
 default["check_mk"]["nagios"]["extra_plugins_package"] = "nagios-plugins-extra"
+default["check_mk"]["nagios"]["user"] = "nagios"
 
+default["check_mk"]["www"]["auth"] = "/etc/nagios3/htpasswd.users"
+default["check_mk"]["www"]["conf"] = "/etc/apache2/conf.d/zzz_check_mk.conf"
 # for sudo
 include_attribute "sudo::default"
 default["authorization"]["sudo"]["include_sudoers_d"] = true
