@@ -1,0 +1,15 @@
+.vagrant
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+/cookbooks
+/test/kitchen/.kitchen
+.kitchen/
+.kitchen.local.yml
+*.iml
+.idea
+Berksfile.lock
+Gemfile.lock
