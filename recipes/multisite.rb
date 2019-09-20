@@ -1,5 +1,7 @@
 include_recipe "xinetd"
 
+check_mk_servers = Check_MK::Discovery.servers(node)
+
 template "/etc/xinetd.d/livestatus" do
   source "livestatus.xinetd.erb"
   owner "root"
@@ -12,4 +14,3 @@ template "/etc/xinetd.d/livestatus" do
   )
   notifies :restart, "service[xinetd]"
 end
-
