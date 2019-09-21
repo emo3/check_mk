@@ -20,7 +20,7 @@ user node['check_mk']['server']['user'] do
 end
 
 # Clear nagios package config files
-%w{ hostgroups_nagios2.cfg localhost_nagios2.cfg services_nagios2.cfg extinfo_nagios2.cfg }.each do |conf|
+%w(hostgroups_nagios2.cfg localhost_nagios2.cfg services_nagios2.cfg extinfo_nagios2.cfg).each do |conf|
   file ::File.join(node['check_mk']['server']['paths']['nagios_conf_dir'], conf) do
     action :delete
     notifies :restart, 'service[nagios3]'

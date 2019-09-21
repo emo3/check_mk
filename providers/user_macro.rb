@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 action :create do
   # Template file
   template_file = node['check_mk']['server']['paths']['nagios_resource_file']
@@ -5,10 +7,10 @@ action :create do
   # The magic!
   begin
     t = if Chef::VERSION.split('.').first.to_i < 11
-      resources(template: template_file)
-    else
-      run_context.resource_collection.find(template: template_file)
-    end
+          resources(template: template_file)
+        else
+          run_context.resource_collection.find(template: template_file)
+        end
 
     # Warn if we are about to override a previously configured USER macro
     log "Nagios macro '#{new_resource.number} was overridden" do
@@ -21,7 +23,7 @@ action :create do
       group 'root'
       mode '0644'
       cookbook 'check_mk'
-      variables macros: Hash.new, plugins: Hash.new
+      variables macros: {}, plugins: {}
     end
     retry
   end
@@ -41,7 +43,7 @@ def new_resource_expected_line
 end
 
 def read_resources_cfg
-  ::File.open node['check_mk']['server']['paths']['nagios_resource_file'] do |file|
-    file.readlines
-  end rescue [""]
+  ::File.open node['check_mk']['server']['paths']['nagios_resource_file'], &:readlines
+rescue StandardError
+  ['']
 end

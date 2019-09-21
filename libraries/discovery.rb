@@ -1,4 +1,6 @@
-module Check_MK
+# frozen_string_literal: true
+
+module Checkmk
   module Discovery
     def register_agent
       register 'agent'
@@ -34,25 +36,26 @@ module Check_MK
 
     def register(service)
       node.override['check_mk']['discovery']['provides'] = [] unless node.override['check_mk']['discovery']['provides'].is_a? Array
-      unless node['check_mk']['discovery']['provides'].include?(service)
-        node.override['check_mk']['discovery']['provides'] << service
-      end
+      node.override['check_mk']['discovery']['provides'] << service unless node['check_mk']['discovery']['provides'].include?(service)
     end
 
     def cloud_location(n)
       case n['cloud']['provider']
-        when 'ec2'  # compare regions
-          n['ec2']['placement_availability_zone'][/([a-z]{2}-[a-z]+-[0-9])[a-z]/, 1]
-        # when adding new multi-region cloud providers - add cases here
-        when nil
-          false
-        else
-          n['cloud']['provider'] # various single-region providers
-      end rescue false # in case n["cloud"] is nil
+      when 'ec2' # compare regions
+        n['ec2']['placement_availability_zone'][/([a-z]{2}-[a-z]+-[0-9])[a-z]/, 1]
+      # when adding new multi-region cloud providers - add cases here
+      when nil
+        false
+      else
+        n['cloud']['provider'] # various single-region providers
+      end
+    rescue StandardError
+      false
+      # in case n["cloud"] is nil
     end
 
     def relative_hostname(dst, src)
-      if not cloud_location(dst)
+      if !cloud_location(dst)
         dst['hostname']
       elsif cloud_location(dst) == cloud_location(src)
         dst['cloud']['local_hostname']
@@ -62,7 +65,7 @@ module Check_MK
     end
 
     def relative_ipv4(dst, src)
-      if not cloud_location(dst)
+      if !cloud_location(dst)
         dst['ipaddress']
       elsif cloud_location(dst) == cloud_location(src)
         dst['cloud']['local_ipv4']

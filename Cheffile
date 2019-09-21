@@ -1,3 +1,0 @@
-cookbook "source",
-  :git => "git://github.com/fewbytes-cookbooks/source.git",
-  :ref => "63e9520facb60580215fa86d0a4bbf6278c926dd"
