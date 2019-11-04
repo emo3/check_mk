@@ -9,7 +9,7 @@ default['check_mk']['agent']['port'] = 6556
 default['check_mk']['agent']['dir']['lib'] = '/usr/lib/check_mk_agent'
 default['check_mk']['agent']['dir']['conf'] = '/etc/check_mk'
 
-case platform
+case node['platform']
 when 'debian', 'ubuntu'
   default['check_mk']['agent']['package']['url'] = 'http://mathias-kettner.de/download/check-mk-agent_1.2.4p3-2_all.deb'
   default['check_mk']['agent']['package']['checksum'] = 'a51d855a1165dd2924fb4042ef071cfe27a6f7b11818e240bab51a3125ef92ec'

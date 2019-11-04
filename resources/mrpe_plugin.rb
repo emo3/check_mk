@@ -1,4 +1,3 @@
-actions :create
 default_action :create
 
 # :plugin should not contain any spaces

@@ -1,10 +1,9 @@
 name             'check_mk'
 maintainer       'Fewbytes'
 maintainer_email 'chef@fewbytes.com'
-license          'Apache 2.0'
+license          'Apache-2.0'
 description      'Installs/Configures Check_MK'
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.1.0'
+version          '1.2.0'
 
 depends 'apache2'
 depends 'php'
@@ -15,4 +14,5 @@ depends 'sudo'
 
 supports 'ubuntu', '>= 10.04'
 supports 'debian', '>= 6.0.0'
-supports 'redhat', '>= 7.5'
+supports 'redhat', '~= 7.5'
+supports 'centos', '~> 7.5'

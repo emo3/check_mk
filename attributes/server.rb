@@ -25,7 +25,7 @@ default['check_mk']['server']['paths']['web_dir'] = '/usr/share/check_mk/web'
 default['check_mk']['server']['paths']['check_manpages_dir'] = '/usr/share/doc/check_mk/checks'
 default['check_mk']['server']['paths']['lib_dir'] = '/usr/lib/check_mk'
 default['check_mk']['server']['paths']['pnp_templates_dir'] = '/usr/share/check_mk/pnp-templates'
-case node.platform_family
+case node['platform_family']
 when 'debian'
   default['check_mk']['server']['paths']['nagios_startscript'] = '/etc/init.d/nagios3'
   default['check_mk']['server']['paths']['nagios_binary'] = '/usr/sbin/nagios3'

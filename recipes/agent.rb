@@ -20,14 +20,13 @@ end
 package 'check-mk-agent' do
   source cmk_package
   provider case File.extname(cmk_package)
-            when '.deb'
-              Chef::Provider::Package::Dpkg
-            when '.rpm'
-              Chef::Provider::Package::Rpm
-            else
-              Chef::Provider::Package
-            end
-
+           when '.deb'
+             Chef::Provider::Package::Dpkg
+           when '.rpm'
+             Chef::Provider::Package::Rpm
+           else
+             Chef::Provider::Package
+           end
 end
 
 check_mk_servers = servers.map { |s| relative_ipv4(s, node) }
@@ -41,11 +40,11 @@ template '/etc/xinetd.d/check_mk' do
     only_from: check_mk_servers
   )
   case node['platform']
-    when 'ubuntu', 'debian'
-      notifies :stop, 'service[xinetd]'
-      notifies :start, 'service[xinetd]'
-    else
-      notifies :restart, 'service[xinetd]'
+  when 'ubuntu', 'debian'
+    notifies :stop, 'service[xinetd]'
+    notifies :start, 'service[xinetd]'
+  else
+    notifies :restart, 'service[xinetd]'
   end
 end
 
@@ -57,8 +56,8 @@ directory node['check_mk']['agent']['conf_dir'] do
 end
 
 register_agent
-if Chef::Config[:solo]
-  Chef::Log.warn('This recipe uses search. Chef Solo does not support save.')
-else
-  node.save
-end
+# if Chef::Config[:solo]
+#   Chef::Log.warn('This recipe uses search. Chef Solo does not support save.')
+# else
+#   node.normal
+# end

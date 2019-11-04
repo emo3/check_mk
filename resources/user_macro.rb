@@ -1,4 +1,3 @@
-actions :create
 default_action :create
 
 # :number should be numeric only
